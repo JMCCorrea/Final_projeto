@@ -2,14 +2,22 @@ import React, { useState } from 'react';
 
 function ListaDeTarefas() {
   const [tarefas, setTarefas] = useState([]);
-  const [novaTarefa, setNovaTarefa] = useState('');
-
-  const adicionarTarefa = () => {
-    if (novaTarefa !== '') {
-      setTarefas([...tarefas, { texto: novaTarefa, concluida: false }]);
+  const [novoProfessor, setNovaTarefa] = useState('');
+//aqui
+  const adicionarProfessor = () => {
+    if (novoProfessor !== '') { //aqui
+      setTarefas([...tarefas, { texto: novoProfessor, concluida: false }]); //aqui
       setNovaTarefa('');
     }
   };
+
+  const adicionarDisciplina = () => {
+    if (novoProfessor !== '') { //aqui
+      setTarefas([...tarefas, { texto: novoProfessor, concluida: false }]); //aqui
+      setNovaTarefa('');
+    }
+  };
+
 
   const removerTarefa = (index) => {
     const novasTarefas = [...tarefas];
@@ -25,18 +33,47 @@ function ListaDeTarefas() {
 
   return (
     <div className="container">
-      <h2 className="titulo-borda">Adicionar tarefas</h2>
+      <h2 className="titulo-borda">Cadastre um professor</h2>
+      <h2>Cadastre uma disciplina</h2>
       <div className="borda-preta">
+        <div>
         <input
           type="text"
-          value={novaTarefa}
+          value={novoProfessor} //aqui
           onChange={(e) => setNovaTarefa(e.target.value)}
           placeholder="cadastre um professor"
           className="input-tarefa"
         />
+        </div>
+
+        <input
+          type="text"
+         // value={novaDisciplina}
+          onChange={(e) => setNovaTarefa(e.target.value)}
+          placeholder="cadastre uma disciplina"
+          className="input-tarefa"
+        />
+
+<input
+          type="text"
+         // value={novaTarefa}
+          onChange={(e) => setNovaTarefa(e.target.value)}
+          placeholder="cadastre uma turma"
+          className="input-tarefa"
+        />
+
         <br></br> <br></br>
-        <button onClick={adicionarTarefa} className="botao-adicionar">
+        <button onClick={adicionarProfessor} className="botao-adicionar">
           Cadastre um professor
+        </button>
+        
+         <button onClick={adicionarDisciplina} className="botao-adicionar">
+          Cadastre uma disciplina
+        </button>
+
+         
+        <button onClick={adicionarProfessor} className="botao-adicionar">
+          Cadastre uma turma
         </button>
 
         
@@ -46,8 +83,9 @@ function ListaDeTarefas() {
           <table className="tabela-tarefas">
             <thead>
               <tr>
-                <th>Tarefa</th>
-                <th>Ações</th>
+                <th>Professor</th>
+                <th>Disciplinas</th>
+                <th>Turma</th>
               </tr>
             </thead>
             <tbody>
