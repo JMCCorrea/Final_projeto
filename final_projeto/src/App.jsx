@@ -25,19 +25,21 @@ function ListaDeTarefas() {
 
   return (
     <div className="container">
-      <h2 className="titulo-borda">Lista de Tarefas</h2>
+      <h2 className="titulo-borda">Adicionar tarefas</h2>
       <div className="borda-preta">
         <input
           type="text"
           value={novaTarefa}
           onChange={(e) => setNovaTarefa(e.target.value)}
-          placeholder="Digite uma nova tarefa"
+          placeholder="cadastre um professor"
           className="input-tarefa"
         />
         <br></br> <br></br>
         <button onClick={adicionarTarefa} className="botao-adicionar">
-          Adicionar Tarefa
+          Cadastre um professor
         </button>
+
+        
 
         <br></br>  <br></br>  <br></br>
         {tarefas.length > 0 && (
@@ -74,6 +76,8 @@ function ListaDeTarefas() {
         )}
       </div>
     </div>
+
+    
   );
 }
 
