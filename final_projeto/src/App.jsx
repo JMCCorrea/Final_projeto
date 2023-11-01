@@ -1,35 +1,81 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from 'react';
 
-function App() {
-  const [count, setCount] = useState(0)
+function ListaDeTarefas() {
+  const [tarefas, setTarefas] = useState([]);
+  const [novaTarefa, setNovaTarefa] = useState('');
+
+  const adicionarTarefa = () => {
+    if (novaTarefa !== '') {
+      setTarefas([...tarefas, { texto: novaTarefa, concluida: false }]);
+      setNovaTarefa('');
+    }
+  };
+
+  const removerTarefa = (index) => {
+    const novasTarefas = [...tarefas];
+    novasTarefas.splice(index, 1);
+    setTarefas(novasTarefas);
+  };
+
+  const handleConcluirTarefa = (index) => {
+    const novasTarefas = [...tarefas];
+    novasTarefas[index].concluida = !novasTarefas[index].concluida;
+    setTarefas(novasTarefas);
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="container">
+      <h2 className="titulo-borda">Lista de Tarefas</h2>
+      <div className="borda-preta">
+        <input
+          type="text"
+          value={novaTarefa}
+          onChange={(e) => setNovaTarefa(e.target.value)}
+          placeholder="Digite uma nova tarefa"
+          className="input-tarefa"
+        />
+        <br></br> <br></br>
+        <button onClick={adicionarTarefa} className="botao-adicionar">
+          Adicionar Tarefa
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+
+        <br></br>  <br></br>  <br></br>
+        {tarefas.length > 0 && (
+          <table className="tabela-tarefas">
+            <thead>
+              <tr>
+                <th>Tarefa</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              {tarefas.map((tarefa, index) => (
+                <tr key={index} className={index % 2 === 0 ? "linha-verde-claro" : "linha-verde-mais-claro"}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={tarefa.concluida}
+                      onChange={() => handleConcluirTarefa(index)}
+                      className="checkbox-concluir"
+                    />
+                    <span className={tarefa.concluida ? "tarefa-concluida" : ""} style={{ marginLeft: '20px' }}>{tarefa.texto}</span>
+                  </td>
+                  <td>
+                    {!tarefa.concluida && (
+                      <button onClick={() => removerTarefa(index)} className="botao-remover">
+                        Remover
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default ListaDeTarefas;
+
